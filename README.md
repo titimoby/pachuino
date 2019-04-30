@@ -1,5 +1,6 @@
-Packuino
-  English below
+# Packuino
+
+_English below_
 
 # Apprendre à coder un jeu sur Gamebuino*
 
@@ -9,11 +10,12 @@ Le jeu devrait au final s'inspirer de mon jeu préféré lorsque j'ai découvert
 Clonez puis sélectionnez la branche correspondant à l'étape recherchée.
 
 * Etape 1 :
-** charger une image encodée grâce à l'outil développé par Steph :
+  * charger une image encodée grâce à l'outil développé par Steph :
 https://gamebuino.com/fr/creations/image-transcoder
-* l'afficher avec l'animation
+  * l'afficher avec l'animation
 
---- English version ---
+***
+_English version_
 # Learn how to code a game on Gamebuino*
 
 The idea is to show you the steps I am taking in my learning by offering you a branch at each important step.
@@ -22,6 +24,6 @@ The game should ultimately be inspired by my favorite game when I discovered mic
 Clone and select the branch corresponding to the desired step.
 
 * Step 1:
-** load an image encoded using the tool developed by Steph:
+  * load an image encoded using the tool developed by Steph:
 https://gamebuino.com/fr/creations/image-transcoder
-** display it with the animation
+  * display it with the animation
