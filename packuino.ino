@@ -1,10 +1,20 @@
 // Load a sprite and move it
 #include <Gamebuino-Meta.h>
 
-const uint16_t astroWalkRightBuff[] = {
-	15,     // frame width
-	16,     // frame height
-	4,      // number of frames
+#define SCREEN_WIDTH            80
+#define SCREEN_HEIGHT           64
+
+#define ASTRO_WIDTH             15
+#define ASTRO_HEIGHT            16
+#define ASTRO_FRAMES            4
+#define ASTRO_DEFAULT_FRAME     0
+#define ASTRO_ORIENTATION_LEFT  0
+#define ASTRO_ORIENTATION_RIGHT 1
+
+const uint16_t astroWalkBuff[] = {
+	ASTRO_WIDTH,     // frame width
+	ASTRO_HEIGHT,     // frame height
+	ASTRO_FRAMES,      // number of frames
 	4,      // animation speed
 	0xf81f, // transparent color
 	0,      // RGB565 color mode
@@ -75,7 +85,29 @@ const uint16_t astroWalkRightBuff[] = {
 	0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xf81f, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xffff, 0xf81f, 0xf81f, 0xf81f, 0xf81f
 };
 
-Image astroWalkRight(astroWalkRightBuff);
+typedef struct {
+    uint8_t           x;
+    uint8_t           y;
+    uint8_t           w; // width
+    uint8_t           h; // height
+    uint8_t    orientation; // left | right
+    int8_t           vx; // horizontal velocity
+    uint8_t       frame; // current frame
+    uint8_t      frames; // number of frames
+    Image         sheet; // spritesheet
+} Sprite;
+
+Sprite astro = {
+    .5*(SCREEN_WIDTH  - ASTRO_WIDTH),  // x
+    .5*(SCREEN_HEIGHT - ASTRO_HEIGHT), // y
+    ASTRO_WIDTH,                       // w
+    ASTRO_HEIGHT,                      // h
+    ASTRO_ORIENTATION_RIGHT,           // orientation
+    0,                                 // vx
+    ASTRO_DEFAULT_FRAME,               // frame
+    ASTRO_FRAMES,                      // frames
+    Image(astroWalkBuff)                   // sheet
+};
 
 void setup() {
   gb.begin();
@@ -84,15 +116,46 @@ void setup() {
 void loop() {
   while (!gb.update());
   
-  //inputs();
+  inputs();
 
-  //logic();
+  logic();
 
   draw();
+}
+
+void inputs() {
+    if (gb.buttons.repeat(BUTTON_LEFT, 0)) {
+        astro.orientation = ASTRO_ORIENTATION_LEFT;
+        astro.vx = -2;
+    } else if (gb.buttons.repeat(BUTTON_RIGHT, 0)) {
+        astro.orientation = ASTRO_ORIENTATION_RIGHT;
+        astro.vx = 2;
+    } else if (gb.buttons.released(BUTTON_LEFT) || gb.buttons.released(BUTTON_RIGHT)) {
+        astro.vx    = 0;
+        astro.frame = ASTRO_DEFAULT_FRAME;
+    }
+}
+
+void logic() {
+if (astro.vx != 0) {
+        astro.x += astro.vx;
+        if (astro.x < 0 || astro.x + astro.w > SCREEN_WIDTH-1) {
+            astro.x -= astro.vx;
+        }
+        astro.frame = ++astro.frame % astro.frames;
+    }
 }
 
 void draw() {
   gb.display.clear();
 
-  gb.display.drawImage(30, 22, astroWalkRight);
+  astro.sheet.setFrame(astro.frame);
+    gb.display.drawImage(
+        astro.x,
+        astro.y,
+        astro.sheet,
+        astro.w * (astro.orientation == ASTRO_ORIENTATION_LEFT ? -1 : 1),
+        astro.h
+    );
+
 }

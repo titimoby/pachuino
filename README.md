@@ -13,6 +13,9 @@ Clonez puis sélectionnez la branche correspondant à l'étape recherchée.
   * charger une image encodée grâce à l'outil développé par Steph :
 https://gamebuino.com/fr/creations/image-transcoder
   * l'afficher avec l'animation
+* Etape 2 :
+  * utiliser une structure pour les information du joueur
+  * utiliser le même buffer Image pour le mouvement gauche et droite
 
 ***
 _English version_
@@ -25,5 +28,8 @@ Clone and select the branch corresponding to the desired step.
 
 * Step 1:
   * load an image encoded using the tool developed by Steph:
-https://gamebuino.com/fr/creations/image-transcoder
+https://gamebuino.com/en/creations/image-transcoder
   * display it with the animation
+* Step 2:
+  * use a structure for player information
+  * use the same Image buffer for left and right movement
