@@ -16,6 +16,9 @@ https://gamebuino.com/fr/creations/image-transcoder
 * Etape 2 :
   * utiliser une structure pour les information du joueur
   * utiliser le même buffer Image pour le mouvement gauche et droite
+* Etape 3 :
+  * transformer la structure en classe
+  * structurer le code dans plusieurs fichiers
 
 ***
 _English version_
@@ -33,3 +36,6 @@ https://gamebuino.com/en/creations/image-transcoder
 * Step 2:
   * use a structure for player information
   * use the same Image buffer for left and right movement
+* Step 3:
+  * transform the structure into a class
+  * structure the code in several files

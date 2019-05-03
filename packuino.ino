@@ -7,13 +7,8 @@
 Sprite astro(
     .5*(SCREEN_WIDTH  - ASTRO_WIDTH),  // x
     .5*(SCREEN_HEIGHT - ASTRO_HEIGHT), // y
-    ASTRO_WIDTH,                       // w
-    ASTRO_HEIGHT,                      // h
     ASTRO_ORIENTATION_RIGHT,           // orientation
-    0,                                 // vx
-    ASTRO_DEFAULT_FRAME,               // frame
-    ASTRO_FRAMES,                      // frames
-    Image(astroWalkBuff)			   // sheet
+    astroWalkBuff
   );
 
 void setup() {
@@ -58,12 +53,5 @@ void logic() {
 void draw() {
   gb.display.clear();
   
-  astro.sheet.setFrame(astro.frame);
-  gb.display.drawImage(
-      astro.x, astro.y,
-      astro.sheet,
-      astro.w * (astro.orientation == ASTRO_ORIENTATION_LEFT ? -1 : 1),
-      astro.h
-    );
-
+  astro.draw(&gb);
 }

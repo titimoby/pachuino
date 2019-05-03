@@ -8,8 +8,12 @@
 #define SPRITE_H
 
 #include <Gamebuino-Meta.h>
+#include "constants.h"
 
 class Sprite {
+    private:
+        Image         sheet; // spritesheet
+
     public:
         uint8_t           x;
         uint8_t           y;
@@ -19,16 +23,13 @@ class Sprite {
         int8_t           vx; // horizontal velocity
         uint8_t       frame; // current frame
         uint8_t      frames; // number of frames
-        Image         sheet; // spritesheet
 
         Sprite(
             uint8_t x, uint8_t y,
-            uint8_t w, uint8_t h,
             uint8_t orientation,
-            int8_t vx,
-            uint8_t frame, uint8_t frames,
-            Image         sheet
+            const uint16_t* imageData
         );
+        void draw(Gamebuino* gb);
 };
 
 #endif

@@ -2,11 +2,24 @@
 
 Sprite::Sprite(
     uint8_t x, uint8_t y,
-    uint8_t w, uint8_t h,
     uint8_t orientation,
-    int8_t vx,
-    uint8_t frame, uint8_t frames,
-    Image         sheet
-) : x(x), y(y), w(w), h(h), orientation(orientation), vx(vx), frame(frame), frames(frames), sheet(sheet){
+    const uint16_t* imageData
+) : x(x), y(y), 
+    w(imageData[0]), h(imageData[1]),
+    orientation(orientation), 
+    vx(0), 
+    frame(0), frames(imageData[2]),
+    sheet(Image(imageData)){
     
+}
+
+void Sprite::draw(Gamebuino* gb) {
+    sheet.setFrame(frame);
+
+    gb->display.drawImage(
+      x, y,
+      sheet,
+      w * (orientation == ASTRO_ORIENTATION_LEFT ? -1 : 1),
+      h
+    );
 }
